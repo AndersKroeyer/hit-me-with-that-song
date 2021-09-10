@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import styles from './Dashboard.module.scss';
 import Word from '../Word/Word';
 import Config from '../../config';
-import { Song } from '../types';
+import { DashboardState } from '../types';
 
-const initialState: Song = {
+const initialState: DashboardState = {
   words: [],
 };
 
 function Dashboard() {
   const [dataFromBroadCast, setDataFromBroadCast] =
-    useState<Song>(initialState);
+    useState<DashboardState>(initialState);
 
   useEffect(() => {
     const bc = new BroadcastChannel(Config.broadcastChannelId);
@@ -24,7 +24,7 @@ function Dashboard() {
     return () => {
       bc.close();
     };
-  });
+  }, []);
 
   return (
     <div className={styles.wordsContainer}>

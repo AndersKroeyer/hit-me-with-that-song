@@ -7,7 +7,8 @@
     "plugin:react/recommended",
     "airbnb",
     "plugin:import/typescript",
-    "prettier"
+    "prettier",
+    "plugin:react-hooks/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -31,6 +32,8 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "no-unused-vars": "warn",
-    "click-events-have-key-events": "off"
+    "click-events-have-key-events": "off",
+    "import/no-named-as-default-member": "warn",
+    "import/no-named-as-default": "warn"
   }
 }
