@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/hit-me-with-that-song/static/css/main.8ec4729e.chunk.css",
-    "main.js": "/hit-me-with-that-song/static/js/main.c78928fe.chunk.js",
-    "main.js.map": "/hit-me-with-that-song/static/js/main.c78928fe.chunk.js.map",
+    "main.js": "/hit-me-with-that-song/static/js/main.eff52a30.chunk.js",
+    "main.js.map": "/hit-me-with-that-song/static/js/main.eff52a30.chunk.js.map",
     "runtime-main.js": "/hit-me-with-that-song/static/js/runtime-main.4154090d.js",
     "runtime-main.js.map": "/hit-me-with-that-song/static/js/runtime-main.4154090d.js.map",
     "static/js/2.0c6b3e37.chunk.js": "/hit-me-with-that-song/static/js/2.0c6b3e37.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.4154090d.js",
     "static/js/2.0c6b3e37.chunk.js",
     "static/css/main.8ec4729e.chunk.css",
-    "static/js/main.c78928fe.chunk.js"
+    "static/js/main.eff52a30.chunk.js"
   ]
 }
