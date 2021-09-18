@@ -6,14 +6,7 @@ import { styles } from './ControlPanel.styles';
 import { SongData } from '../../Data/TDC2021';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
 import TeamPointControl from './TeamPointControl/TeamPointControl';
-
-// interface ComponentState {
-//   activeSong: Song;
-// }
-
-// const initialState: ComponentState = {
-//   activeSong: SongData[0],
-// };
+import { sendPoints, sendSong } from '../../Utilities/Broadcaster';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -80,16 +73,11 @@ function ControlPanel() {
     dispatch({ type: TOGGLE_TRIVIA_ACTION, visibility: visible });
 
   useEffect(() => {
-    console.log('sending song', activeSong);
-    const bc = new BroadcastChannel(Config.broadcastChannelId);
-    bc.postMessage({ song: activeSong });
-    bc.close();
+    sendSong(activeSong);
   }, [activeSong]);
 
   useEffect(() => {
-    const bc = new BroadcastChannel(Config.broadcastChannelId);
-    bc.postMessage({ points: { team1: team1Points, team2: team2Points } });
-    bc.close();
+    sendPoints({ team1Points, team2Points });
   }, [team1Points, team2Points]);
 
   const classes = styles();

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from './Dashboard.styles';
 import Word from '../Word/Word';
-import Config from '../../config';
-import { DashboardState } from '../types';
+import { DashboardState, TeamPoints } from '../types';
+import { subscribeToBroadcast } from '../../Utilities/Broadcaster';
 
 const initialState: DashboardState = {
   words: [],
@@ -13,32 +13,28 @@ const initialState: DashboardState = {
 function Dashboard() {
   const [dataFromBroadCast, setDataFromBroadCast] =
     useState<DashboardState>(initialState);
+  const [teamPoints, setTeamPoints] = useState<TeamPoints>({
+    team1Points: 0,
+    team2Points: 0,
+  });
 
   useEffect(() => {
-    const bc = new BroadcastChannel(Config.broadcastChannelId);
-    bc.onmessage = ({ data }) => {
-      console.log('got some broadcast data', data);
-
-      if (data.song) {
-        setDataFromBroadCast(data.song);
-      }
-    };
+    const closeConnection = subscribeToBroadcast(
+      (song) => setDataFromBroadCast(song),
+      (points) => console.log('got points', setTeamPoints(points)),
+    );
     return () => {
-      bc.close();
+      closeConnection();
     };
   }, []);
 
   const classes = styles();
 
-  if (dataFromBroadCast.showTrivia) {
-    return (
-      <div className={classes.triviaContainer}>
-        <span className={classes.triviaText}>{dataFromBroadCast.trivia}</span>
-      </div>
-    );
-  }
-
-  return (
+  const content = dataFromBroadCast.showTrivia ? (
+    <div className={classes.triviaContainer}>
+      <span className={classes.triviaText}>{dataFromBroadCast.trivia}</span>
+    </div>
+  ) : (
     <div className={classes.wordsContainer}>
       {dataFromBroadCast.words.map((word) => (
         <Word
@@ -47,6 +43,16 @@ function Dashboard() {
           stopWord={word.stopWord && word.visible}
         />
       ))}
+    </div>
+  );
+
+  return (
+    <div>
+      <div className={classes.pointsContainer}>
+        <div>Sasha Dupont: {teamPoints.team1Points}</div>
+        <div>Sigurd Bertet: {teamPoints.team2Points}</div>
+      </div>
+      {content}
     </div>
   );
 }

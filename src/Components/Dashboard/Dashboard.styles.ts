@@ -22,6 +22,12 @@ const styles = makeStyles({
     marginLeft: '10%',
     marginRight: '10%',
   },
+  pointsContainer: {
+    position: 'absolute',
+    color: 'white',
+    fontSize: '26px',
+    left: '10px',
+  },
 });
 
 export default styles;

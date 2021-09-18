@@ -18,3 +18,8 @@ export interface DashboardState {
   trivia: string;
   showTrivia: boolean;
 }
+
+export interface TeamPoints {
+  team1Points: number;
+  team2Points: number;
+}
