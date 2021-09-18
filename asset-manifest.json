@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/hit-me-with-that-song/static/css/main.8ec4729e.chunk.css",
+    "main.js": "/hit-me-with-that-song/static/js/main.c78928fe.chunk.js",
+    "main.js.map": "/hit-me-with-that-song/static/js/main.c78928fe.chunk.js.map",
+    "runtime-main.js": "/hit-me-with-that-song/static/js/runtime-main.4154090d.js",
+    "runtime-main.js.map": "/hit-me-with-that-song/static/js/runtime-main.4154090d.js.map",
+    "static/js/2.0c6b3e37.chunk.js": "/hit-me-with-that-song/static/js/2.0c6b3e37.chunk.js",
+    "static/js/2.0c6b3e37.chunk.js.map": "/hit-me-with-that-song/static/js/2.0c6b3e37.chunk.js.map",
+    "static/js/3.f6c1c759.chunk.js": "/hit-me-with-that-song/static/js/3.f6c1c759.chunk.js",
+    "static/js/3.f6c1c759.chunk.js.map": "/hit-me-with-that-song/static/js/3.f6c1c759.chunk.js.map",
+    "index.html": "/hit-me-with-that-song/index.html",
+    "static/css/main.8ec4729e.chunk.css.map": "/hit-me-with-that-song/static/css/main.8ec4729e.chunk.css.map",
+    "static/js/2.0c6b3e37.chunk.js.LICENSE.txt": "/hit-me-with-that-song/static/js/2.0c6b3e37.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4154090d.js",
+    "static/js/2.0c6b3e37.chunk.js",
+    "static/css/main.8ec4729e.chunk.css",
+    "static/js/main.c78928fe.chunk.js"
+  ]
+}
