@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player/youtube';
 import styles from './Dashboard.styles';
 import Word from '../Word/Word';
-import { DashboardState, TeamPoints } from '../types';
+import { DashboardState, Music, TeamPoints } from '../types';
 import { subscribeToBroadcast } from '../../Utilities/Broadcaster';
 
 const initialState: DashboardState = {
@@ -17,11 +18,22 @@ function Dashboard() {
     team1Points: 0,
     team2Points: 0,
   });
+  const [playing, setPlaying] = useState(false);
+  const [musicUrl, setMusicUrl] = useState('');
+
+  const playMusic = (music: Music) => {
+    setPlaying(true);
+    setMusicUrl(music.url);
+    setTimeout(() => {
+      setPlaying(false);
+    }, music.playtime * 1000);
+  };
 
   useEffect(() => {
     const closeConnection = subscribeToBroadcast(
-      (song) => setDataFromBroadCast(song),
-      (points) => console.log('got points', setTeamPoints(points)),
+      setDataFromBroadCast,
+      setTeamPoints,
+      playMusic,
     );
     return () => {
       closeConnection();
@@ -47,12 +59,13 @@ function Dashboard() {
   );
 
   return (
-    <div>
+    <div style={{ overflowY: 'hidden' }}>
       <div className={classes.pointsContainer}>
         <div>Sasha Dupont: {teamPoints.team1Points}</div>
         <div>Sigurd Bertet: {teamPoints.team2Points}</div>
       </div>
       {content}
+      <ReactPlayer playing={playing} url={musicUrl} />
     </div>
   );
 }

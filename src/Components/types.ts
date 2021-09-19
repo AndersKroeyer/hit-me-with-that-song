@@ -4,7 +4,12 @@ export interface Word {
   stopWord?: boolean;
 }
 
-export interface Song {
+export interface Music {
+  url: string;
+  playtime: number;
+}
+
+export interface Song extends Music {
   words: Word[];
   author: string;
   title: string;

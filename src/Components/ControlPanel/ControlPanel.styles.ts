@@ -39,8 +39,8 @@ export const styles = makeStyles({
     fontWeight: 'bolder',
     fontSize: '18px',
   },
-  triviaToggle: {
-    width: '100px',
+  toggleButton: {
+    width: '150px',
     height: '100px',
     display: 'flex',
     justifyContent: 'center',

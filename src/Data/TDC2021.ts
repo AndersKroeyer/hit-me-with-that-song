@@ -26,6 +26,8 @@ export const SongData: Song[] = [
     trivia: 'Hvad var Rollo & Kings job før de lavede musik',
     triviaAnswer: 'Skolelærer',
     showTrivia: false,
+    url: 'https://www.youtube.com/watch?v=EnG6OpagWEc&t=40',
+    playtime: 12,
   },
   {
     author: 'Shu-bi-dua',
@@ -35,5 +37,7 @@ export const SongData: Song[] = [
       'Hvor mange medlemmer har der været med i shubidua over årene: 3, 5, 9, 11 eller 16?',
     triviaAnswer: '16',
     showTrivia: false,
+    url: 'https://www.youtube.com/watch?v=xvq1__JFtrI&t=2m37s',
+    playtime: 14,
   },
 ];

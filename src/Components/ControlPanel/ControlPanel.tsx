@@ -1,12 +1,15 @@
 import { Paper } from '@material-ui/core';
 import { useReducer, useEffect, useState } from 'react';
-import Config from '../../config';
 import { Song, Word } from '../types';
 import { styles } from './ControlPanel.styles';
 import { SongData } from '../../Data/TDC2021';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
 import TeamPointControl from './TeamPointControl/TeamPointControl';
-import { sendPoints, sendSong } from '../../Utilities/Broadcaster';
+import {
+  sendPoints,
+  sendSong,
+  sendStartMusic,
+} from '../../Utilities/Broadcaster';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -56,8 +59,19 @@ function reducer(state: Song, action: validActions): Song {
   }
 }
 
+const initialState: Song = {
+  author: '',
+  showTrivia: false,
+  title: '',
+  trivia: '',
+  triviaAnswer: '',
+  words: [],
+  url: 'https://www.youtube.com/watch?v=rUPJPXkiMMY&t=7',
+  playtime: 15,
+};
+
 function ControlPanel() {
-  const [activeSong, dispatch] = useReducer(reducer, SongData[0]);
+  const [activeSong, dispatch] = useReducer(reducer, initialState);
   const [team1Points, setTeam1Points] = useState(0);
   const [team2Points, setTeam2Points] = useState(0);
 
@@ -112,11 +126,24 @@ function ControlPanel() {
           ))}
         </div>
 
-        {/* trivia + points */}
         <div className={classes.columnContainer}>
           <Paper
             elevation={2}
-            className={classes.triviaToggle}
+            className={classes.toggleButton}
+            onClick={() =>
+              sendStartMusic({
+                url: activeSong.url,
+                playtime: activeSong.playtime,
+              })
+            }
+            style={{ marginBottom: '20px' }}
+          >
+            <div>Play song</div>
+          </Paper>
+
+          <Paper
+            elevation={2}
+            className={classes.toggleButton}
             onClick={() => handleTriviaClick(!activeSong.showTrivia)}
           >
             <div style={{ color: activeSong.showTrivia ? 'green' : 'red' }}>
