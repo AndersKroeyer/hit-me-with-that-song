@@ -13,7 +13,7 @@ const ToggleWord = ({
   stopWord,
   handleWordClick,
 }: ToggleWordProps) => {
-  const classes = toggleWordStyle({ visible, stopWord: stopWord || false });
+  const classes = toggleWordStyle({ visible, stopWord });
 
   return (
     <Paper

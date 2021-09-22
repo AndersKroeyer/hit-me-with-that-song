@@ -1,12 +1,19 @@
 export interface Word {
   text: string;
   visible: boolean;
-  stopWord?: boolean;
+  stopWord: boolean;
 }
 
 export interface Music {
   url: string;
   playtime: number;
+}
+
+// eslint-disable-next-line no-shadow
+export enum TriviaState {
+  Hidden = 'Hide trivia',
+  Question = 'Show question',
+  Answer = 'Show Answer',
 }
 
 export interface Song extends Music {
@@ -15,13 +22,14 @@ export interface Song extends Music {
   title: string;
   trivia: string;
   triviaAnswer: string;
-  showTrivia: boolean;
+  showTrivia: TriviaState;
 }
 
 export interface DashboardState {
   words: Word[];
   trivia: string;
-  showTrivia: boolean;
+  triviaAnswer: string;
+  showTrivia: TriviaState;
 }
 
 export interface TeamPoints {

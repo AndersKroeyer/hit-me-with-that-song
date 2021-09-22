@@ -1,3 +1,4 @@
+import { Hidden } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 export const columnMargin = {
@@ -20,7 +21,17 @@ export const styles = makeStyles({
   columnContainer: {
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'hidden',
+    overflowX: 'hidden',
     ...columnMargin,
+  },
+  columnScrollContainer: {
+    overflowY: 'scroll',
+    height: '100%',
+    width: '100%',
+    paddingRight: '17px',
+    boxSizing: 'content-box',
+    overflowX: 'hidden',
   },
   wordColumnContainer: {
     display: 'flex',
@@ -32,15 +43,17 @@ export const styles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '10px',
-    padding: '20px',
-    width: '100%',
+    padding: '15px',
+    borderLeft: '5px solid white',
+    marginLeft: '1px',
+    marginTop: '5px',
   },
   songTitle: {
     fontWeight: 'bolder',
     fontSize: '18px',
   },
   toggleButton: {
-    width: '150px',
+    width: '250px',
     height: '100px',
     display: 'flex',
     justifyContent: 'center',

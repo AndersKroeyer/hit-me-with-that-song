@@ -4,12 +4,22 @@ import { songDarkBlue, songRed } from '../Colors';
 export interface wordStyleProps {
   visible: boolean;
   stopWord: boolean;
+  textLength: number;
 }
+
+const getGrowth = (textlength: number): number => {
+  if (textlength > 9) {
+    return 0.1;
+  }
+  const olo = 1 - parseFloat(`0.${textlength}`);
+  return olo;
+};
+
 export const wordStyles = makeStyles({
   wordContainer: (props: wordStyleProps) => ({
     backgroundColor: props.stopWord ? songRed : songDarkBlue,
     color: 'white',
-    'flex-grow': '1',
+    flexGrow: getGrowth(props.textLength),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

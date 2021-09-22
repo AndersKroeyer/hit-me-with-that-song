@@ -1,11 +1,14 @@
 import { Paper } from '@material-ui/core';
-import { useReducer, useEffect, useState } from 'react';
-import { Song, Word } from '../types';
+import { v4 as uuidv4 } from 'uuid';
+import React, { useReducer, useEffect, useState } from 'react';
+import { Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
 import { SongData } from '../../Data/TDC2021';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
 import TeamPointControl from './TeamPointControl/TeamPointControl';
 import {
+  sendGuessMusic,
+  sendIntroMusic,
   sendPoints,
   sendSong,
   sendStartMusic,
@@ -25,7 +28,7 @@ interface setSongAction {
 const TOGGLE_TRIVIA_ACTION = 'toggleTrivia';
 interface toggleTriviaAction {
   type: typeof TOGGLE_TRIVIA_ACTION;
-  visibility: boolean;
+  triviaState: TriviaState;
 }
 
 type validActions = toggleWordAction | setSongAction | toggleTriviaAction;
@@ -53,7 +56,7 @@ function reducer(state: Song, action: validActions): Song {
     case SET_SONG_ACTION:
       return action.song;
     case TOGGLE_TRIVIA_ACTION:
-      return { ...state, showTrivia: action.visibility };
+      return { ...state, showTrivia: action.triviaState };
     default:
       throw new Error();
   }
@@ -61,12 +64,12 @@ function reducer(state: Song, action: validActions): Song {
 
 const initialState: Song = {
   author: '',
-  showTrivia: false,
+  showTrivia: TriviaState.Hidden,
   title: '',
   trivia: '',
   triviaAnswer: '',
   words: [],
-  url: 'https://www.youtube.com/watch?v=rUPJPXkiMMY&t=7',
+  url: 'https://www.youtube.com/watch?v=rUPJPXkiMMY&t=7', // intro song
   playtime: 15,
 };
 
@@ -77,14 +80,23 @@ function ControlPanel() {
 
   const handleSongClick = (index: number) =>
     dispatch({ type: SET_SONG_ACTION, song: SongData[index] });
-  const handleWordClick = (index: number, visible: boolean) =>
+  const handleWordClick = (
+    index: number,
+    visible: boolean,
+    stopWord: boolean,
+  ) => {
+    if (visible) {
+      sendGuessMusic({ isStopWord: stopWord });
+    }
     dispatch({
       type: TOGGLE_WORD_ACTION,
       wordIndex: index,
       visibility: visible,
     });
-  const handleTriviaClick = (visible: boolean) =>
-    dispatch({ type: TOGGLE_TRIVIA_ACTION, visibility: visible });
+  };
+
+  const handleTriviaClick = (state: TriviaState) =>
+    dispatch({ type: TOGGLE_TRIVIA_ACTION, triviaState: state });
 
   useEffect(() => {
     sendSong(activeSong);
@@ -101,16 +113,23 @@ function ControlPanel() {
       <div className={classes.controlPanelContainer}>
         {/* songpicker */}
         <div className={classes.columnContainer}>
-          {SongData.map((song, idx) => (
-            <Paper
-              elevation={1}
-              className={classes.pickSong}
-              onClick={() => handleSongClick(idx)}
-            >
-              <span className={classes.songTitle}>{song.author}</span>
-              <span>{song.title}</span>
-            </Paper>
-          ))}
+          <div className={classes.columnScrollContainer}>
+            {SongData.map((song, idx) => (
+              <Paper
+                elevation={1}
+                className={classes.pickSong}
+                onClick={() => handleSongClick(idx)}
+                key={song.title}
+                style={{
+                  borderLeft:
+                    song.title === activeSong.title ? '5px solid green' : '',
+                }}
+              >
+                <span className={classes.songTitle}>{song.author}</span>
+                <span>{song.title}</span>
+              </Paper>
+            ))}
+          </div>
         </div>
 
         {/* toggle visibility  */}
@@ -118,15 +137,26 @@ function ControlPanel() {
           {activeSong.words.map((word, idx) => (
             <ToggleWord
               idx={idx}
-              handleWordClick={() => handleWordClick(idx, !word.visible)}
+              handleWordClick={() =>
+                handleWordClick(idx, !word.visible, word.stopWord)
+              }
               stopWord={word.stopWord}
               visible={word.visible}
               text={word.text}
+              key={uuidv4()}
             />
           ))}
         </div>
 
         <div className={classes.columnContainer}>
+          <Paper
+            elevation={2}
+            className={classes.toggleButton}
+            onClick={() => sendIntroMusic()}
+            style={{ marginBottom: '25px' }}
+          >
+            <div>Play intro</div>
+          </Paper>
           <Paper
             elevation={2}
             className={classes.toggleButton}
@@ -136,20 +166,33 @@ function ControlPanel() {
                 playtime: activeSong.playtime,
               })
             }
-            style={{ marginBottom: '20px' }}
+            style={{ marginBottom: '150px' }}
           >
             <div>Play song</div>
           </Paper>
 
-          <Paper
-            elevation={2}
-            className={classes.toggleButton}
-            onClick={() => handleTriviaClick(!activeSong.showTrivia)}
-          >
-            <div style={{ color: activeSong.showTrivia ? 'green' : 'red' }}>
-              Trivia
-            </div>
-          </Paper>
+          {(Object.keys(TriviaState) as Array<keyof typeof TriviaState>).map(
+            (key) => (
+              <Paper
+                elevation={2}
+                className={classes.toggleButton}
+                onClick={() => handleTriviaClick(TriviaState[key])}
+                style={{ marginBottom: '20px' }}
+                key={uuidv4()}
+              >
+                <div
+                  style={{
+                    color:
+                      activeSong.showTrivia === TriviaState[key]
+                        ? 'green'
+                        : 'red',
+                  }}
+                >
+                  {TriviaState[key]}
+                </div>
+              </Paper>
+            ),
+          )}
         </div>
 
         <div className={classes.columnContainer}>

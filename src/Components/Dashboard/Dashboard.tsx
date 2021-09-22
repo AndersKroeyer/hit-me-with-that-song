@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 import styles from './Dashboard.styles';
 import Word from '../Word/Word';
-import { DashboardState, Music, TeamPoints } from '../types';
+import { DashboardState, Music, TeamPoints, TriviaState } from '../types';
 import { subscribeToBroadcast } from '../../Utilities/Broadcaster';
 
 const initialState: DashboardState = {
   words: [],
   trivia: '',
-  showTrivia: false,
+  triviaAnswer: '',
+  showTrivia: TriviaState.Hidden,
 };
 
 function Dashboard() {
@@ -20,13 +21,18 @@ function Dashboard() {
   });
   const [playing, setPlaying] = useState(false);
   const [musicUrl, setMusicUrl] = useState('');
+  const [playTime, setPlaytime] = useState(0);
 
   const playMusic = (music: Music) => {
-    setPlaying(true);
     setMusicUrl(music.url);
+    setPlaytime(music.playtime);
+    setPlaying(true);
+  };
+
+  const onMusicStart = () => {
     setTimeout(() => {
       setPlaying(false);
-    }, music.playtime * 1000);
+    }, playTime * 1000);
   };
 
   useEffect(() => {
@@ -42,30 +48,38 @@ function Dashboard() {
 
   const classes = styles();
 
-  const content = dataFromBroadCast.showTrivia ? (
-    <div className={classes.triviaContainer}>
-      <span className={classes.triviaText}>{dataFromBroadCast.trivia}</span>
-    </div>
-  ) : (
-    <div className={classes.wordsContainer}>
-      {dataFromBroadCast.words.map((word) => (
-        <Word
-          visible={word.visible}
-          text={word.text}
-          stopWord={word.stopWord && word.visible}
-        />
-      ))}
-    </div>
-  );
+  const content =
+    dataFromBroadCast.showTrivia !== TriviaState.Hidden ? (
+      <div className={classes.triviaContainer}>
+        <span className={classes.triviaText}>
+          {dataFromBroadCast.showTrivia === TriviaState.Question
+            ? dataFromBroadCast.trivia
+            : dataFromBroadCast.triviaAnswer}
+        </span>
+      </div>
+    ) : (
+      <div className={classes.wordsContainer}>
+        {dataFromBroadCast.words.map((word) => (
+          <Word
+            visible={word.visible}
+            text={word.text}
+            stopWord={word.stopWord && word.visible}
+          />
+        ))}
+      </div>
+    );
 
   return (
     <div style={{ overflowY: 'hidden' }}>
-      <div className={classes.pointsContainer}>
+      <div
+        className={classes.pointsContainer}
+        style={{ display: dataFromBroadCast.words.length ? 'block' : 'none' }}
+      >
         <div>Sasha Dupont: {teamPoints.team1Points}</div>
         <div>Sigurd Bertet: {teamPoints.team2Points}</div>
       </div>
       {content}
-      <ReactPlayer playing={playing} url={musicUrl} />
+      <ReactPlayer playing={playing} url={musicUrl} onPlay={onMusicStart} />
     </div>
   );
 }
