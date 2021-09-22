@@ -140,6 +140,7 @@ function ControlPanel() {
               >
                 <span className={classes.songTitle}>{song.author}</span>
                 <span>{song.title}</span>
+                <i>{song.words.flatMap((x) => [x.text, ' '])}</i>
               </Paper>
             ))}
           </div>
