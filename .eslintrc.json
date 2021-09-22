@@ -34,6 +34,7 @@
     "click-events-have-key-events": "off",
     "import/no-named-as-default-member": "warn",
     "import/no-named-as-default": "warn",
-    "no-unused-vars": ["warn", { "args": "none" }]
+    "no-unused-vars": ["warn", { "args": "none" }],
+    "jsx-a11y/mouse-events-have-key-events": "off"
   }
 }

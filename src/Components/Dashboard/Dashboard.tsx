@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ReactPlayer from 'react-player';
+import ReactCardFlip from 'react-card-flip';
 import styles from './Dashboard.styles';
 import Word from '../Word/Word';
 import { DashboardState, Music, TeamPoints, TriviaState } from '../types';
@@ -48,6 +50,14 @@ function Dashboard() {
 
   const classes = styles();
 
+  const getGrowth = (textlength: number): number => {
+    if (textlength > 9) {
+      return 0.1;
+    }
+    const olo = 1 - parseFloat(`0.${textlength}`);
+    return olo;
+  };
+
   const content =
     dataFromBroadCast.showTrivia !== TriviaState.Hidden ? (
       <div className={classes.triviaContainer}>
@@ -60,11 +70,24 @@ function Dashboard() {
     ) : (
       <div className={classes.wordsContainer}>
         {dataFromBroadCast.words.map((word) => (
-          <Word
-            visible={word.visible}
-            text={word.text}
-            stopWord={word.stopWord && word.visible}
-          />
+          <div
+            className={classes.cardFlipContainer}
+            style={{ flexGrow: getGrowth(word.text.length) }}
+            key={uuidv4()}
+          >
+            <ReactCardFlip isFlipped={word.visible} flipDirection="horizontal">
+              <Word
+                visible={false}
+                text={word.text}
+                stopWord={word.stopWord && word.visible}
+              />
+              <Word
+                visible
+                text={word.text}
+                stopWord={word.stopWord && word.visible}
+              />
+            </ReactCardFlip>
+          </div>
         ))}
       </div>
     );

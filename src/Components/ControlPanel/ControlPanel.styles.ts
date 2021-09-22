@@ -52,12 +52,4 @@ export const styles = makeStyles({
     fontWeight: 'bolder',
     fontSize: '18px',
   },
-  toggleButton: {
-    width: '250px',
-    height: '100px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '30px',
-  },
 });

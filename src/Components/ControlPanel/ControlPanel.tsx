@@ -1,6 +1,6 @@
 import { Paper } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
-import React, { useReducer, useEffect, useState } from 'react';
+import { useReducer, useEffect, useState } from 'react';
 import { Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
 import { SongData } from '../../Data/TDC2021';
@@ -13,6 +13,7 @@ import {
   sendSong,
   sendStartMusic,
 } from '../../Utilities/Broadcaster';
+import PaperButton from './PaperButton/PaperButton';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -84,8 +85,9 @@ function ControlPanel() {
     index: number,
     visible: boolean,
     stopWord: boolean,
+    music: boolean,
   ) => {
-    if (visible) {
+    if (visible && music) {
       sendGuessMusic({ isStopWord: stopWord });
     }
     dispatch({
@@ -97,6 +99,17 @@ function ControlPanel() {
 
   const handleTriviaClick = (state: TriviaState) =>
     dispatch({ type: TOGGLE_TRIVIA_ACTION, triviaState: state });
+
+  const toggleRemainingWords = () => {
+    const notVisibleWords = activeSong.words.flatMap((word, index) =>
+      word.visible ? [] : [index],
+    );
+    notVisibleWords.forEach((wordIndex, delay) => {
+      setTimeout(() => {
+        handleWordClick(wordIndex, true, false, false);
+      }, 500 * delay);
+    });
+  };
 
   useEffect(() => {
     sendSong(activeSong);
@@ -138,7 +151,7 @@ function ControlPanel() {
             <ToggleWord
               idx={idx}
               handleWordClick={() =>
-                handleWordClick(idx, !word.visible, word.stopWord)
+                handleWordClick(idx, !word.visible, word.stopWord, true)
               }
               stopWord={word.stopWord}
               visible={word.visible}
@@ -149,35 +162,27 @@ function ControlPanel() {
         </div>
 
         <div className={classes.columnContainer}>
-          <Paper
-            elevation={2}
-            className={classes.toggleButton}
-            onClick={() => sendIntroMusic()}
-            style={{ marginBottom: '25px' }}
-          >
+          <PaperButton onClick={sendIntroMusic}>
             <div>Play intro</div>
-          </Paper>
-          <Paper
-            elevation={2}
-            className={classes.toggleButton}
+          </PaperButton>
+          <PaperButton
             onClick={() =>
               sendStartMusic({
                 url: activeSong.url,
                 playtime: activeSong.playtime,
               })
             }
-            style={{ marginBottom: '150px' }}
           >
             <div>Play song</div>
-          </Paper>
+          </PaperButton>
+          <PaperButton onClick={toggleRemainingWords}>
+            <div>Show all words</div>
+          </PaperButton>
 
           {(Object.keys(TriviaState) as Array<keyof typeof TriviaState>).map(
             (key) => (
-              <Paper
-                elevation={2}
-                className={classes.toggleButton}
+              <PaperButton
                 onClick={() => handleTriviaClick(TriviaState[key])}
-                style={{ marginBottom: '20px' }}
                 key={uuidv4()}
               >
                 <div
@@ -190,7 +195,7 @@ function ControlPanel() {
                 >
                   {TriviaState[key]}
                 </div>
-              </Paper>
+              </PaperButton>
             ),
           )}
         </div>

@@ -1,6 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles({
+  cardFlipContainer: {
+    borderLeft: 'solid 1px white',
+    borderRight: 'solid 1px white',
+    borderTop: 'solid 5px white',
+    borderBottom: 'solid 5px white',
+  },
   wordsContainer: {
     display: 'flex',
     justifyContent: 'space-evenly',
