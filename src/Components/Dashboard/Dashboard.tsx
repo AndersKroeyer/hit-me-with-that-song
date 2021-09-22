@@ -73,7 +73,6 @@ function Dashboard() {
           <div
             className={classes.cardFlipContainer}
             style={{ flexGrow: getGrowth(word.text.length) }}
-            key={uuidv4()}
           >
             <ReactCardFlip isFlipped={word.visible} flipDirection="horizontal">
               <Word
