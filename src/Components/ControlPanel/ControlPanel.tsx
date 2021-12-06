@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useReducer, useEffect, useState } from 'react';
 import { Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
-import { SongData } from '../../Data/TDC2021';
+import SongData from '../../Data/VinVin2021';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
 import TeamPointControl from './TeamPointControl/TeamPointControl';
 import {
@@ -81,6 +81,7 @@ function ControlPanel() {
 
   const handleSongClick = (index: number) =>
     dispatch({ type: SET_SONG_ACTION, song: SongData[index] });
+
   const handleWordClick = (
     index: number,
     visible: boolean,
@@ -208,7 +209,7 @@ function ControlPanel() {
             handlePointChange={(amount) => setTeam1Points(team1Points + amount)}
           />
           <TeamPointControl
-            name="Sigurd Bertet"
+            name="Sigurd Barrett"
             points={team2Points}
             handlePointChange={(amount) => setTeam2Points(team2Points + amount)}
           />

@@ -69,11 +69,12 @@ function Dashboard() {
       </div>
     ) : (
       <div className={classes.wordsContainer}>
-        {dataFromBroadCast.words.map((word) => (
+        {dataFromBroadCast.words.map((word, index) => (
           <div
             className={classes.cardFlipContainer}
             style={{ flexGrow: getGrowth(word.text.length) }}
           >
+            {/* <div style={{ color: 'white' }}>{index}</div> */}
             <ReactCardFlip isFlipped={word.visible} flipDirection="horizontal">
               <Word
                 visible={false}
@@ -98,7 +99,7 @@ function Dashboard() {
         style={{ display: dataFromBroadCast.words.length ? 'block' : 'none' }}
       >
         <div>Sasha Dupont: {teamPoints.team1Points}</div>
-        <div>Sigurd Bertet: {teamPoints.team2Points}</div>
+        <div>Sigurd Barrett: {teamPoints.team2Points}</div>
       </div>
       {content}
       <ReactPlayer playing={playing} url={musicUrl} onPlay={onMusicStart} />
