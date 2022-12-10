@@ -1,6 +1,6 @@
-import { Paper } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
 import { useReducer, useEffect, useState } from 'react';
+import { Paper } from '@mui/material';
 import { Quiz, Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
@@ -111,20 +111,18 @@ function ControlPanel() {
     sendPoints({ team1Points, team2Points });
   }, [team1Points, team2Points]);
 
-  const classes = styles();
-
   return (
-    <div className={classes.outerMostContainer}>
-      <div className={classes.controlPanelContainer}>
+    <div css={styles.outerMostContainer}>
+      <div css={styles.controlPanelContainer}>
         {/* songpicker */}
-        <div className={classes.columnContainer}>
+        <div css={styles.columnContainer}>
           <QuizPicker quizChanged={(newQuiz: Quiz) => setQuiz(newQuiz)} />
-          <div className={classes.columnScrollContainer}>
+          <div css={styles.columnScrollContainer}>
             {quiz &&
               quiz.songs.map((song, idx) => (
                 <Paper
                   elevation={1}
-                  className={classes.pickSong}
+                  css={styles.pickSong}
                   onClick={() => handleSongClick(idx)}
                   key={song.title}
                   style={{
@@ -132,7 +130,7 @@ function ControlPanel() {
                       song.title === activeSong.title ? '5px solid green' : '',
                   }}
                 >
-                  <span className={classes.songTitle}>{song.author}</span>
+                  <span css={styles.songTitle}>{song.author}</span>
                   <span>{song.title}</span>
                   <i>{song.words.flatMap((x) => [x.text, ' '])}</i>
                 </Paper>
@@ -141,7 +139,7 @@ function ControlPanel() {
         </div>
 
         {/* toggle visibility  */}
-        <div className={classes.wordColumnContainer}>
+        <div css={styles.wordColumnContainer}>
           {activeSong.words.length > 0 &&
             activeSong.words.map((word, idx) => (
               <ToggleWord
@@ -157,7 +155,7 @@ function ControlPanel() {
             ))}
         </div>
 
-        <div className={classes.columnContainer}>
+        <div css={styles.columnContainer}>
           <PaperButton onClick={sendIntroMusic}>
             <div>Play intro</div>
           </PaperButton>
@@ -196,7 +194,7 @@ function ControlPanel() {
           )}
         </div>
 
-        <div className={classes.columnContainer}>
+        <div css={styles.columnContainer}>
           <TeamPointControl
             name="Sasha Dupont"
             points={team1Points}

@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField } from '@mui/material';
 import styles from './QuizPicker.style';
-import {
-  getQuiz,
-  getQuizzes,
-  saveQuiz,
-} from '../../../Utilities/PersistentStore';
 import { Quiz } from '../../types';
 import SongData from '../../../Data/VinVin2021';
 import PaperButton from '../PaperButton/PaperButton';
@@ -14,17 +9,10 @@ interface SongPickerProps {
   quizChanged: (data: Quiz) => void;
 }
 
-const SongPicker = ({ quizChanged }: SongPickerProps) => {
-  const classes = styles();
+function SongPicker({ quizChanged }: SongPickerProps) {
+  const [quizKey, setQuizKey] = useState('');
 
-  // const [quizzes, setQuizzes] = useState<Quiz>();
-  const [quizKey, setQuizKey] = useState<string>('');
-
-  const fetchQuiz = async () => {
-    const quiz = await getQuiz(quizKey);
-    console.log('fetched quiz', quiz);
-    quizChanged(quiz);
-  };
+  const fetchQuiz = async () => {};
 
   return (
     <div
@@ -49,5 +37,5 @@ const SongPicker = ({ quizChanged }: SongPickerProps) => {
       </PaperButton>
     </div>
   );
-};
+}
 export default SongPicker;

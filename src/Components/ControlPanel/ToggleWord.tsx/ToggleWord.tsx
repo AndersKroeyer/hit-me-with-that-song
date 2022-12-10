@@ -1,4 +1,4 @@
-import { Paper } from '@material-ui/core';
+import { Paper } from '@mui/material';
 import { Word } from '../../types';
 import { toggleWordStyle } from './ToggleWord.style';
 
@@ -7,22 +7,18 @@ interface ToggleWordProps extends Word {
   idx: number;
 }
 
-const ToggleWord = ({
+function ToggleWord({
   idx,
   visible,
   stopWord,
   handleWordClick,
-}: ToggleWordProps) => {
-  const classes = toggleWordStyle({ visible, stopWord });
+}: ToggleWordProps) {
+  const style = toggleWordStyle({ visible, stopWord });
 
   return (
-    <Paper
-      elevation={2}
-      onClick={handleWordClick}
-      className={classes.toggleWord}
-    >
+    <Paper elevation={2} onClick={handleWordClick} css={style}>
       <div>{idx + 1}</div>
     </Paper>
   );
-};
+}
 export default ToggleWord;

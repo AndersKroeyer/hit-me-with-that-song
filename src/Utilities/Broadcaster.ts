@@ -14,7 +14,6 @@ export const sendPoints = (points: TeamPoints) => {
 };
 
 export const sendStartMusic = (music: Music) => {
-  console.log('start music', music);
   const bc = new BroadcastChannel(Config.broadcastChannelId);
   bc.postMessage({ music });
   bc.close();

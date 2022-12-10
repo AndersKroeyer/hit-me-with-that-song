@@ -1,7 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { css } from "@emotion/react";
 
-const styles = makeStyles({
-  toggleButton: {
+const styles = css({
     width: '250px',
     height: '100px',
     display: 'flex',
@@ -10,7 +9,6 @@ const styles = makeStyles({
     fontSize: '30px',
     margin: '2px',
     marginBottom: '25px',
-  },
 });
 
 export default styles;

@@ -1,5 +1,5 @@
+import { Paper } from '@mui/material';
 import React from 'react';
-import { Paper } from '@material-ui/core';
 import styles from './PaperButton.style';
 
 interface PaperButtonProps {
@@ -8,18 +8,11 @@ interface PaperButtonProps {
   // eslint-disable-next-line react/require-default-props
   customStyles?: any;
 }
-const PaperButton = ({ children, onClick, customStyles }: PaperButtonProps) => {
-  const classes = styles();
-
+function PaperButton({ children, onClick, customStyles }: PaperButtonProps) {
   return (
-    <Paper
-      elevation={2}
-      className={classes.toggleButton}
-      onClick={onClick}
-      style={customStyles}
-    >
+    <Paper elevation={2} css={styles} onClick={onClick} style={customStyles}>
       {children}
     </Paper>
   );
-};
+}
 export default PaperButton;

@@ -1,44 +1,44 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { css } from "@emotion/react";
 
-export const columnMargin = {
+export const columnMargin = css({
   marginBottom: '100px',
   marginTop: '100px',
-};
+});
 
-export const styles = makeStyles({
-  outerMostContainer: {
+export const styles = {
+  outerMostContainer: css({
     height: '100vh',
     width: '100%',
-  },
-  controlPanelContainer: {
+  }),
+  controlPanelContainer: css({
     display: 'flex',
     justifyContent: 'space-between',
     marginLeft: '100px',
     marginRight: '100px',
     height: '100%',
-  },
-  columnContainer: {
+  }),
+  columnContainer: css({
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
     overflowX: 'hidden',
     ...columnMargin,
-  },
-  columnScrollContainer: {
+  }),
+  columnScrollContainer: css({
     overflowY: 'scroll',
     height: '100%',
     width: '100%',
     boxSizing: 'content-box',
     overflowX: 'hidden',
     paddingRight: '17px',
-  },
-  wordColumnContainer: {
+  }),
+  wordColumnContainer: css({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     ...columnMargin,
-  },
-  pickSong: {
+  }),
+  pickSong: css({
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '10px',
@@ -46,9 +46,9 @@ export const styles = makeStyles({
     borderLeft: '5px solid white',
     marginLeft: '1px',
     marginTop: '5px',
-  },
-  songTitle: {
+  }),
+  songTitle: css({
     fontWeight: 'bolder',
     fontSize: '18px',
-  },
-});
+  }),
+};

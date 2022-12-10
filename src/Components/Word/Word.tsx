@@ -1,13 +1,18 @@
 import { Word } from '../types';
-import { wordStyles } from './Word.styles';
+import { wordContainerStyle, wordStyle } from './Word.styles';
 
-const WordComponent = ({ text, visible, stopWord }: Word) => {
-  const classes = wordStyles({ stopWord, visible, textLength: text.length });
+function WordComponent({ text, visible, stopWord }: Word) {
+  const containerStyle = wordContainerStyle({
+    stopWord,
+    visible,
+    textLength: text.length,
+  });
+  const style = wordStyle(visible);
 
   return (
-    <div className={classes.wordContainer} key={text}>
-      <span className={classes.wordStyle}>{visible ? text : '𝄞'}</span>
+    <div css={containerStyle} key={text}>
+      <span css={style}>{visible ? text : '𝄞'}</span>
     </div>
   );
-};
+}
 export default WordComponent;

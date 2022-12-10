@@ -48,8 +48,6 @@ function Dashboard() {
     };
   }, []);
 
-  const classes = styles();
-
   const getGrowth = (textlength: number): number => {
     if (textlength > 9) {
       return 0.1;
@@ -60,18 +58,18 @@ function Dashboard() {
 
   const content =
     dataFromBroadCast.showTrivia !== TriviaState.Hidden ? (
-      <div className={classes.triviaContainer}>
-        <span className={classes.triviaText}>
+      <div css={styles.triviaContainer}>
+        <span css={styles.triviaText}>
           {dataFromBroadCast.showTrivia === TriviaState.Question
             ? dataFromBroadCast.trivia
             : dataFromBroadCast.triviaAnswer}
         </span>
       </div>
     ) : (
-      <div className={classes.wordsContainer}>
+      <div css={styles.wordsContainer}>
         {dataFromBroadCast.words.map((word, index) => (
           <div
-            className={classes.cardFlipContainer}
+            css={styles.cardFlipContainer}
             style={{ flexGrow: getGrowth(word.text.length) }}
           >
             {/* <div style={{ color: 'white' }}>{index}</div> */}
@@ -95,7 +93,7 @@ function Dashboard() {
   return (
     <div style={{ overflowY: 'hidden' }}>
       <div
-        className={classes.pointsContainer}
+        css={styles.pointsContainer}
         style={{ display: dataFromBroadCast.words.length ? 'block' : 'none' }}
       >
         <div>Sasha Dupont: {teamPoints.team1Points}</div>

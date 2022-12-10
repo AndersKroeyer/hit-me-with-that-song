@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import { css } from "@emotion/react";
 import { songDarkBlue, songRed } from '../Colors';
 
 export interface wordStyleProps {
@@ -7,17 +7,16 @@ export interface wordStyleProps {
   textLength: number;
 }
 
-export const wordStyles = makeStyles({
-  wordContainer: (props: wordStyleProps) => ({
-    backgroundColor: props.stopWord ? songRed : songDarkBlue,
-    color: 'white',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '250px',
-    fontSize: props.visible ? '100px' : '150px',
-  }),
-  wordStyle: (props: wordStyleProps) => ({
-    marginBottom: props.visible ? '0' : '25px',
-  }),
-});
+export const wordContainerStyle = (props: wordStyleProps) => css({
+  backgroundColor: props.stopWord ? songRed : songDarkBlue,
+  color: 'white',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '250px',
+  fontSize: props.visible ? '100px' : '150px',
+})
+
+export const wordStyle = (visible: boolean) => css({
+  marginBottom: visible ? '0' : '25px',
+})

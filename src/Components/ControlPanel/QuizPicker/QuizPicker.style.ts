@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { css } from "@emotion/react";
 
-const styles = makeStyles({
+const styles = css({
   toggleButton: {
     width: '250px',
     height: '100px',

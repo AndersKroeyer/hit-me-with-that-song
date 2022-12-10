@@ -7,8 +7,8 @@
     "plugin:react/recommended",
     "airbnb",
     "plugin:import/typescript",
-    "prettier",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -35,6 +35,7 @@
     "import/no-named-as-default-member": "warn",
     "import/no-named-as-default": "warn",
     "no-unused-vars": ["warn", { "args": "none" }],
-    "jsx-a11y/mouse-events-have-key-events": "off"
+    "jsx-a11y/mouse-events-have-key-events": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }]
   }
 }

@@ -1,16 +1,16 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { css } from "@emotion/react";
 
-const styles = makeStyles({
-  container: {
+const styles = {
+  container: css({
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '50px',
     alignItems: 'center',
     padding: '10px',
-  },
-  teamName: {
+  }),
+  teamName: css({
     fontSize: '22px',
-  },
-});
+  }),
+};
 
 export default styles;

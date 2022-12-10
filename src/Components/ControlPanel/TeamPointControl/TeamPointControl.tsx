@@ -1,6 +1,6 @@
-import { IconButton, Card } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import { Card, IconButton } from '@mui/material';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import styles from './TeamPointControl.style';
 
 interface TeamPointControlProps {
@@ -9,16 +9,14 @@ interface TeamPointControlProps {
   name: string;
 }
 
-const TeamPointControl = ({
+function TeamPointControl({
   points,
   name,
   handlePointChange,
-}: TeamPointControlProps) => {
-  const classes = styles();
+}: TeamPointControlProps) {
   return (
-    <Card className={classes.container}>
-      <span className={classes.teamName}> {name} </span>
-
+    <Card css={styles.container}>
+      <span css={styles.teamName}> {name} </span>
       <div>
         <IconButton aria-label="delete" onClick={() => handlePointChange(-1)}>
           <ArrowDownwardIcon fontSize="inherit" />
@@ -30,5 +28,5 @@ const TeamPointControl = ({
       </div>
     </Card>
   );
-};
+}
 export default TeamPointControl;
