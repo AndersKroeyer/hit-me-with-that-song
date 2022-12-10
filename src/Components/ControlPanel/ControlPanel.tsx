@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import { v4 as uuidv4 } from 'uuid';
-import { useReducer, useEffect, useState } from 'react';
+import { useReducer, useEffect, useState, useContext } from 'react';
 import { Paper } from '@mui/material';
 import { Quiz, Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
@@ -15,6 +16,8 @@ import {
 import PaperButton from './PaperButton/PaperButton';
 import QuizPicker from './QuizPicker/QuizPicker';
 import SongData from '../../Data/VinVin2021';
+import { AuthContext } from '../../Firebase/FirebaseAuthContext';
+import UserIcon from '../UserIcon/UserIcon';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -113,10 +116,11 @@ function ControlPanel() {
 
   return (
     <div css={styles.outerMostContainer}>
+      <UserIcon />
       <div css={styles.controlPanelContainer}>
         {/* songpicker */}
         <div css={styles.columnContainer}>
-          <QuizPicker quizChanged={(newQuiz: Quiz) => setQuiz(newQuiz)} />
+          {/* <QuizPicker quizChanged={(newQuiz: Quiz) => setQuiz(newQuiz)} /> */}
           <div css={styles.columnScrollContainer}>
             {quiz &&
               quiz.songs.map((song, idx) => (

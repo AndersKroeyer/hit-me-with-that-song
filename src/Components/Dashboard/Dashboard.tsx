@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ReactPlayer from 'react-player';

@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import { Paper } from '@mui/material';
 import React from 'react';
 import styles from './PaperButton.style';

@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { Paper } from '@mui/material';
 import { Word } from '../../types';
 import { toggleWordStyle } from './ToggleWord.style';

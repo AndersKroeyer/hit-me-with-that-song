@@ -31,6 +31,7 @@
     "react/react-in-jsx-scope": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    "no-console": "off",
     "click-events-have-key-events": "off",
     "import/no-named-as-default-member": "warn",
     "import/no-named-as-default": "warn",

@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { Word } from '../types';
 import { wordContainerStyle, wordStyle } from './Word.styles';
 

@@ -1,10 +1,11 @@
-import { basename } from 'path';
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ControlPanel from './Components/ControlPanel/ControlPanel';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Landingpage from './Components/LandingPage/LandingPage';
+import Login from './Components/Login/Login';
 import ErrorPage from './ErrorPage';
+import { AuthContext } from './Firebase/FirebaseAuthContext';
 
 const router = createBrowserRouter(
   [
@@ -30,6 +31,12 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  const userContext = useContext(AuthContext);
+
+  if (!userContext.state) {
+    return <Login />;
+  }
+
   return (
     <React.StrictMode>
       <RouterProvider router={router} />
