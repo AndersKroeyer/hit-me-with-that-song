@@ -1,3 +1,8 @@
+export interface Quiz {
+  songs: Song[];
+  key: string;
+}
+
 export interface Word {
   text: string;
   visible: boolean;

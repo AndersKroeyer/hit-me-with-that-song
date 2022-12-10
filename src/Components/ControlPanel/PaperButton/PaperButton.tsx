@@ -5,8 +5,10 @@ import styles from './PaperButton.style';
 interface PaperButtonProps {
   children: React.ReactNode;
   onClick: () => void;
+  // eslint-disable-next-line react/require-default-props
+  customStyles?: any;
 }
-const PaperButton = ({ children, onClick }: PaperButtonProps) => {
+const PaperButton = ({ children, onClick, customStyles }: PaperButtonProps) => {
   const classes = styles();
 
   return (
@@ -14,7 +16,7 @@ const PaperButton = ({ children, onClick }: PaperButtonProps) => {
       elevation={2}
       className={classes.toggleButton}
       onClick={onClick}
-      style={{ marginBottom: '25px' }}
+      style={customStyles}
     >
       {children}
     </Paper>

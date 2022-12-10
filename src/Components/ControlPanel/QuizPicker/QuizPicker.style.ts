@@ -9,7 +9,6 @@ const styles = makeStyles({
     alignItems: 'center',
     fontSize: '30px',
     margin: '2px',
-    marginBottom: '25px',
   },
 });
 

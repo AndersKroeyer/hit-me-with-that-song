@@ -1,9 +1,8 @@
 import { Paper } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
 import { useReducer, useEffect, useState } from 'react';
-import { Song, TriviaState, Word } from '../types';
+import { Quiz, Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
-import SongData from '../../Data/VinVin2021';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
 import TeamPointControl from './TeamPointControl/TeamPointControl';
 import {
@@ -14,6 +13,8 @@ import {
   sendStartMusic,
 } from '../../Utilities/Broadcaster';
 import PaperButton from './PaperButton/PaperButton';
+import QuizPicker from './QuizPicker/QuizPicker';
+import SongData from '../../Data/VinVin2021';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -63,24 +64,14 @@ function reducer(state: Song, action: validActions): Song {
   }
 }
 
-const initialState: Song = {
-  author: '',
-  showTrivia: TriviaState.Hidden,
-  title: '',
-  trivia: '',
-  triviaAnswer: '',
-  words: [],
-  url: 'https://www.youtube.com/watch?v=rUPJPXkiMMY&t=7', // intro song
-  playtime: 15,
-};
-
 function ControlPanel() {
-  const [activeSong, dispatch] = useReducer(reducer, initialState);
+  const [quiz, setQuiz] = useState<Quiz>({ key: 'dummy', songs: SongData });
+  const [activeSong, dispatch] = useReducer(reducer, quiz.songs[0]);
   const [team1Points, setTeam1Points] = useState(0);
   const [team2Points, setTeam2Points] = useState(0);
 
   const handleSongClick = (index: number) =>
-    dispatch({ type: SET_SONG_ACTION, song: SongData[index] });
+    dispatch({ type: SET_SONG_ACTION, song: quiz.songs[index] });
 
   const handleWordClick = (
     index: number,
@@ -127,40 +118,43 @@ function ControlPanel() {
       <div className={classes.controlPanelContainer}>
         {/* songpicker */}
         <div className={classes.columnContainer}>
+          <QuizPicker quizChanged={(newQuiz: Quiz) => setQuiz(newQuiz)} />
           <div className={classes.columnScrollContainer}>
-            {SongData.map((song, idx) => (
-              <Paper
-                elevation={1}
-                className={classes.pickSong}
-                onClick={() => handleSongClick(idx)}
-                key={song.title}
-                style={{
-                  borderLeft:
-                    song.title === activeSong.title ? '5px solid green' : '',
-                }}
-              >
-                <span className={classes.songTitle}>{song.author}</span>
-                <span>{song.title}</span>
-                <i>{song.words.flatMap((x) => [x.text, ' '])}</i>
-              </Paper>
-            ))}
+            {quiz &&
+              quiz.songs.map((song, idx) => (
+                <Paper
+                  elevation={1}
+                  className={classes.pickSong}
+                  onClick={() => handleSongClick(idx)}
+                  key={song.title}
+                  style={{
+                    borderLeft:
+                      song.title === activeSong.title ? '5px solid green' : '',
+                  }}
+                >
+                  <span className={classes.songTitle}>{song.author}</span>
+                  <span>{song.title}</span>
+                  <i>{song.words.flatMap((x) => [x.text, ' '])}</i>
+                </Paper>
+              ))}
           </div>
         </div>
 
         {/* toggle visibility  */}
         <div className={classes.wordColumnContainer}>
-          {activeSong.words.map((word, idx) => (
-            <ToggleWord
-              idx={idx}
-              handleWordClick={() =>
-                handleWordClick(idx, !word.visible, word.stopWord, true)
-              }
-              stopWord={word.stopWord}
-              visible={word.visible}
-              text={word.text}
-              key={uuidv4()}
-            />
-          ))}
+          {activeSong.words.length > 0 &&
+            activeSong.words.map((word, idx) => (
+              <ToggleWord
+                idx={idx}
+                handleWordClick={() =>
+                  handleWordClick(idx, !word.visible, word.stopWord, true)
+                }
+                stopWord={word.stopWord}
+                visible={word.visible}
+                text={word.text}
+                key={uuidv4()}
+              />
+            ))}
         </div>
 
         <div className={classes.columnContainer}>

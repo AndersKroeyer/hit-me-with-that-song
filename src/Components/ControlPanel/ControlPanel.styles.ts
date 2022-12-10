@@ -28,9 +28,9 @@ export const styles = makeStyles({
     overflowY: 'scroll',
     height: '100%',
     width: '100%',
-    paddingRight: '17px',
     boxSizing: 'content-box',
     overflowX: 'hidden',
+    paddingRight: '17px',
   },
   wordColumnContainer: {
     display: 'flex',
