@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useContext, useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ControlPanel from './Components/ControlPanel/ControlPanel';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Landingpage from './Components/LandingPage/LandingPage';
 import Login from './Components/Login/Login';
 import ErrorPage from './ErrorPage';
+import { auth } from './Firebase/Firebase';
 import { AuthContext } from './Firebase/FirebaseAuthContext';
 
 const router = createBrowserRouter(
@@ -32,6 +34,23 @@ const router = createBrowserRouter(
 
 function App() {
   const userContext = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user && !userContext.state) {
+        userContext.update({ user, extraProp: 'Logged in' });
+      } else {
+        userContext.update(null);
+      }
+      setIsLoading(false);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isLoading) {
+    return <div />;
+  }
 
   if (!userContext.state) {
     return <Login />;

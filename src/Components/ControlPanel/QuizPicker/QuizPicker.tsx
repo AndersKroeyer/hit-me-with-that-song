@@ -5,13 +5,13 @@ import { TextField } from '@mui/material';
 import styles from './QuizPicker.style';
 import { Quiz } from '../../types';
 import SongData from '../../../Data/VinVin2021';
-import PaperButton from '../PaperButton/PaperButton';
+import PaperButton from '../../../Common/PaperButton/PaperButton';
 
-interface SongPickerProps {
+interface QuizPickerProps {
   quizChanged: (data: Quiz) => void;
 }
 
-function SongPicker({ quizChanged }: SongPickerProps) {
+function QuizPicker({ quizChanged }: QuizPickerProps) {
   const [quizKey, setQuizKey] = useState('');
 
   const fetchQuiz = async () => {};
@@ -40,4 +40,4 @@ function SongPicker({ quizChanged }: SongPickerProps) {
     </div>
   );
 }
-export default SongPicker;
+export default QuizPicker;

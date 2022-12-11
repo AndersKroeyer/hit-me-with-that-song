@@ -3,8 +3,9 @@ import { Avatar, css, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useContext, useState } from 'react';
 import * as React from 'react';
 import { AuthContext } from '../../Firebase/FirebaseAuthContext';
+import { auth } from '../../Firebase/Firebase';
 
-function Login() {
+function UserIcon() {
   const userContext = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
@@ -20,6 +21,7 @@ function Login() {
   });
 
   const LogoutClick = () => {
+    auth.signOut();
     userContext.update(null);
   };
 
@@ -49,4 +51,4 @@ function Login() {
     </div>
   );
 }
-export default Login;
+export default UserIcon;

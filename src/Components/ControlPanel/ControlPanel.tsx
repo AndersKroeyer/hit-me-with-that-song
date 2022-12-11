@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { v4 as uuidv4 } from 'uuid';
-import { useReducer, useEffect, useState, useContext } from 'react';
-import { Paper } from '@mui/material';
+import { useReducer, useEffect, useState } from 'react';
 import { Quiz, Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
@@ -13,11 +12,11 @@ import {
   sendSong,
   sendStartMusic,
 } from '../../Utilities/Broadcaster';
-import PaperButton from './PaperButton/PaperButton';
+import PaperButton from '../../Common/PaperButton/PaperButton';
 import QuizPicker from './QuizPicker/QuizPicker';
 import SongData from '../../Data/VinVin2021';
-import { AuthContext } from '../../Firebase/FirebaseAuthContext';
-import UserIcon from '../UserIcon/UserIcon';
+import UserIcon from '../../Common/UserIcon/UserIcon';
+import SongPicker from '../../Common/SongPicker/SongPicker';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -120,28 +119,8 @@ function ControlPanel() {
       <div css={styles.controlPanelContainer}>
         {/* songpicker */}
         <div css={styles.columnContainer}>
-          {/* <QuizPicker quizChanged={(newQuiz: Quiz) => setQuiz(newQuiz)} /> */}
-          <div css={styles.columnScrollContainer}>
-            {quiz &&
-              quiz.songs.map((song, idx) => (
-                <Paper
-                  elevation={1}
-                  css={styles.pickSong}
-                  onClick={() => handleSongClick(idx)}
-                  key={song.title}
-                  style={{
-                    borderLeft:
-                      song.title === activeSong.title ? '5px solid green' : '',
-                  }}
-                >
-                  <span css={styles.songTitle}>{song.author}</span>
-                  <span>{song.title}</span>
-                  <i>{song.words.flatMap((x) => [x.text, ' '])}</i>
-                </Paper>
-              ))}
-          </div>
+          <SongPicker onSongClick={handleSongClick} quiz={quiz} />
         </div>
-
         {/* toggle visibility  */}
         <div css={styles.wordColumnContainer}>
           {activeSong.words.length > 0 &&
