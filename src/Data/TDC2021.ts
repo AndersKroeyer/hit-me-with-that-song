@@ -3,6 +3,7 @@ import { buildWords } from './SongBuildingUtil';
 
 const SongData: Song[] = [
   {
+    id: "1",
     author: 'Rollo & King',
     title: 'Der står et billede af dig på mit bord',
     words: buildWords(['der', 'står', 'et', 'billede', 'af', 'dig']),
@@ -13,6 +14,7 @@ const SongData: Song[] = [
     playtime: 12,
   },
   {
+    id: "2",
     author: 'Shu-bi-dua',
     title: 'Danmark',
     words: buildWords(['den', 'der', 'siger', 'andet', 'lyver']),
@@ -24,6 +26,7 @@ const SongData: Song[] = [
     playtime: 14,
   },
   {
+    id: "3",
     author: 'Nick & Jay',
     title: 'Lækker',
     words: buildWords(['har', 'jeg', 'set', 'dig', 'før']),
@@ -35,6 +38,7 @@ const SongData: Song[] = [
     playtime: 14,
   },
   {
+    id: "4",
     author: 'Benny Jamz, Gilli, Kesi',
     title: 'Ibiza',
     words: buildWords(['bare', 'spis', 'for', 'ingen', 'skal', 'mangle']),
@@ -45,6 +49,7 @@ const SongData: Song[] = [
     playtime: 12,
   },
   {
+    id: "5",
     author: 'Burhan G + Medina',
     title: 'Mest ondt',
     words: buildWords(['er', 'alt', 'det', 'jeg', 'savner', 'nu']),
@@ -56,6 +61,7 @@ const SongData: Song[] = [
     playtime: 15,
   },
   {
+    id: "6",
     author: 'Drengene fra Angora',
     title: 'Rejsesangen',
     words: buildWords(['og', 'aben', 'er', 'deres', 'bedste', 'ven']),
@@ -66,6 +72,7 @@ const SongData: Song[] = [
     playtime: 16,
   },
   {
+    id: "7",
     author: 'Shakira',
     title: 'Whenever, Wherever',
     words: buildWords(['my', 'breasts', 'are', 'small', 'and', 'humble']),
@@ -76,6 +83,7 @@ const SongData: Song[] = [
     playtime: 10,
   },
   {
+    id: "8",
     author: 'Joel Corry',
     title: 'Head and Heart',
     words: buildWords(['and', 'my', 'head', 'tells', 'me', 'to', 'stop']),
@@ -86,6 +94,7 @@ const SongData: Song[] = [
     playtime: 12,
   },
   {
+    id: "9",
     author: 'Based Boys & Fissefred',
     title: 'Giz præsidenter',
     words: buildWords([
@@ -104,6 +113,7 @@ const SongData: Song[] = [
     playtime: 11,
   },
   {
+    id: "10",
     author: 'Pitpull',
     title: 'Fireball',
     words: buildWords(['I', 'saw', 'I', 'conquered', 'I', 'came']),
@@ -114,6 +124,7 @@ const SongData: Song[] = [
     playtime: 9,
   },
   {
+    id: "11",
     author: 'Owl City',
     title: 'Fireflies',
     words: buildWords([

@@ -13,10 +13,10 @@ import {
   sendStartMusic,
 } from '../../Utilities/Broadcaster';
 import PaperButton from '../../Common/PaperButton/PaperButton';
-import QuizPicker from './QuizPicker/QuizPicker';
 import SongData from '../../Data/VinVin2021';
 import UserIcon from '../../Common/UserIcon/UserIcon';
 import SongPicker from '../../Common/SongPicker/SongPicker';
+import { GetUserQuizList } from '../../Firebase/Firebase';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -71,6 +71,14 @@ function ControlPanel() {
   const [activeSong, dispatch] = useReducer(reducer, quiz.songs[0]);
   const [team1Points, setTeam1Points] = useState(0);
   const [team2Points, setTeam2Points] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+      const userQuizList = await GetUserQuizList();
+      setQuiz(userQuizList[1]);
+    }
+    fetchData();
+  }, [setQuiz]);
 
   const handleSongClick = (index: number) =>
     dispatch({ type: SET_SONG_ACTION, song: quiz.songs[index] });

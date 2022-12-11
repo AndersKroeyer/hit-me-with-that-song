@@ -37,6 +37,7 @@
     "import/no-named-as-default": "warn",
     "no-unused-vars": ["warn", { "args": "none" }],
     "jsx-a11y/mouse-events-have-key-events": "off",
-    "react/no-unknown-property": ["error", { "ignore": ["css"] }]
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react/require-default-props": "off"
   }
 }

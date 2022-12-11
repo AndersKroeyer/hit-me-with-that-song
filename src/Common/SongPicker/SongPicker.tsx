@@ -2,11 +2,12 @@
 import { css } from '@emotion/react';
 import { Paper } from '@mui/material';
 import { useCallback, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Quiz, Song } from '../../Components/types';
 
 const styles = {
   columnScrollContainer: css({
-    overflowY: 'scroll',
+    overflowY: 'auto',
     height: '100%',
     width: '100%',
     boxSizing: 'content-box',
@@ -52,14 +53,16 @@ function SongPicker({ quiz, onSongClick }: SongPickerProps) {
             elevation={1}
             css={styles.pickSong}
             onClick={() => internalOnClick(idx)}
-            key={song.title}
+            key={uuidv4()}
             style={{
               borderLeft:
                 song.title === activeSong?.title ? '5px solid green' : '',
             }}
           >
-            <span css={styles.songTitle}>{song.author}</span>
-            <span>{song.title}</span>
+            <span css={styles.songTitle}>
+              {song.author || 'Unknown artist'}
+            </span>
+            <span>{song.title || `Song ${idx}`}</span>
             <i>{song.words.flatMap((x) => [x.text, ' '])}</i>
           </Paper>
         ))}

@@ -22,6 +22,7 @@ export enum TriviaState {
 }
 
 export interface Song extends Music {
+  id: string;
   words: Word[];
   author: string;
   title: string;

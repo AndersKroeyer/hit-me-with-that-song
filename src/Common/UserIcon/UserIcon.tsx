@@ -16,7 +16,7 @@ function UserIcon() {
 
   const style = css({
     position: 'absolute',
-    top: 15,
+    top: 22,
     right: 15,
   });
 

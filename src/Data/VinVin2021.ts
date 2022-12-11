@@ -3,6 +3,7 @@ import { buildWords } from './SongBuildingUtil';
 
 const SongData: Song[] = [
   {
+    id: "1",
     author: 'Britney Spears',
     title: 'Toxic',
     words: buildWords(["don't", 'you', 'know', 'that', "you're", 'toxic']),
@@ -13,6 +14,7 @@ const SongData: Song[] = [
     playtime: 12,
   },
   {
+    id: "2",
     author: 'Birthe Kjær',
     title: 'Sommer og Sol',
     words: buildWords(['en', 'himmel', 'så', 'blå', 'som', 'viol']),
@@ -23,6 +25,7 @@ const SongData: Song[] = [
     playtime: 14,
   },
   {
+    id: "3",
     author: 'Eminem',
     title: 'Lose Yourself',
     words: buildWords(['do', 'not', 'miss', 'you', 'chance', 'to', 'blow']),
@@ -33,6 +36,7 @@ const SongData: Song[] = [
     playtime: 13,
   },
   {
+    id: "4",
     author: 'Queen',
     title: 'Bohemian Rhapsody',
     words: buildWords(['wish', "I'd", 'never', 'been', 'born', 'at', 'all']),
@@ -44,6 +48,7 @@ const SongData: Song[] = [
     playtime: 13,
   },
   {
+    id: "5",
     author: 'Michael Jackson',
     title: 'Smooth Criminal',
     words: buildWords(['tell', 'us', 'that ', "you're", 'okay']),
@@ -54,6 +59,7 @@ const SongData: Song[] = [
     playtime: 17,
   },
   {
+    id: "6",
     author: 'Nelly',
     title: 'Hot in here',
     words: buildWords(['take', 'off', 'all', 'your', 'clothes']),
@@ -64,6 +70,7 @@ const SongData: Song[] = [
     playtime: 18,
   },
   {
+    id: "7",
     author: 'Nirvana',
     title: 'Smells like teen spirit',
     words: buildWords(['Here', 'we', 'are ', 'now', 'entertain', 'us']),
@@ -73,8 +80,8 @@ const SongData: Song[] = [
     url: 'https://www.youtube.com/watch?v=hTWKbfoikeg&t=0m58s',
     playtime: 18,
   },
-
   {
+    id: "8",
     author: 'Notorious B.I.G',
     title: 'Juicy',
     words: buildWords([
@@ -94,6 +101,7 @@ const SongData: Song[] = [
     playtime: 12,
   },
   {
+    id: "9",
     author: 'Bon Jovi',
     title: 'Living on a prayer',
     words: buildWords(['Take', 'my', 'hand', "we'll", 'make', 'it']),
@@ -104,6 +112,7 @@ const SongData: Song[] = [
     playtime: 16,
   },
   {
+    id: "10",
     author: 'Nik & Jay',
     title: 'En dag tilbage',
     words: buildWords(['lyst', 'til', 'at', 'leve', 'videre', 'i', 'hende']),
@@ -114,6 +123,7 @@ const SongData: Song[] = [
     playtime: 21,
   },
   {
+    id: "11",
     author: 'Lil Nas X',
     title: 'Old town road',
     words: buildWords(['you', "can't", 'tell', 'me', 'nothing']),
@@ -124,6 +134,7 @@ const SongData: Song[] = [
     playtime: 15,
   },
   {
+    id: "12",
     author: 'Pharrel Williams',
     title: 'Happy',
     words: buildWords(['feel', 'like', 'happiness', 'is', 'the', 'truth']),

@@ -1,9 +1,9 @@
-import { User } from "firebase/auth";
-import CreateAppContext from "../Utilities/CreateAppContext";
+import { User } from 'firebase/auth';
+import CreateAppContext from '../Utilities/CreateAppContext';
 
 export interface AppUser {
-    user: User;
-    extraProp: string;
+  user: User;
+  extraProp: string;
 }
 
 const [ctx, provider] = CreateAppContext<AppUser | null>(null);
