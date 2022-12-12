@@ -59,7 +59,7 @@ export default function QuizCreator({
         />
       )}
       <TextField
-        label="Quiz name"
+        label="Add a quiz"
         onChange={(x) => setNewQuizName(x.target.value)}
         value={newQuizName}
         style={{ marginLeft: '15px' }}

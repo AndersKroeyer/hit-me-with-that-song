@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { v4 as uuidv4 } from 'uuid';
-import { useReducer, useEffect, useState } from 'react';
+import { useReducer, useEffect, useState, useCallback } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { IconButton } from '@mui/material';
 import { Quiz, Song, TriviaState, Word } from '../types';
 import { styles } from './ControlPanel.styles';
 import ToggleWord from './ToggleWord.tsx/ToggleWord';
@@ -12,11 +15,11 @@ import {
   sendSong,
   sendStartMusic,
 } from '../../Utilities/Broadcaster';
-import PaperButton from '../../Common/PaperButton/PaperButton';
 import SongData from '../../Data/VinVin2021';
 import UserIcon from '../../Common/UserIcon/UserIcon';
 import SongPicker from '../../Common/SongPicker/SongPicker';
 import { GetUserQuizList } from '../../Firebase/Firebase';
+import ControlButton from './ControlButton/ControlButton';
 
 const TOGGLE_WORD_ACTION = 'toggleWordVisiblity';
 interface toggleWordAction {
@@ -66,22 +69,36 @@ function reducer(state: Song, action: validActions): Song {
   }
 }
 
+const defaultKey = uuidv4();
+
 function ControlPanel() {
-  const [quiz, setQuiz] = useState<Quiz>({ key: 'dummy', songs: SongData });
+  const defaultQuiz: Quiz = { key: defaultKey, songs: SongData };
+  const [quizKey, setQuizKey] = useState<string>(defaultKey);
+  const [quizList, setQuizList] = useState<Quiz[]>([defaultQuiz]);
+  const quiz = quizList.find((x) => x.key === quizKey) || defaultQuiz;
   const [activeSong, dispatch] = useReducer(reducer, quiz.songs[0]);
   const [team1Points, setTeam1Points] = useState(0);
   const [team2Points, setTeam2Points] = useState(0);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [songChosen, setSongChosen] = useState(false);
+
+  const handleSongClick = useCallback((song: Song) => {
+    setSongChosen(true);
+    return dispatch({ type: SET_SONG_ACTION, song });
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       const userQuizList = await GetUserQuizList();
-      setQuiz(userQuizList[1]);
+      setQuizList(userQuizList);
+      const initialQuizKey = searchParams.get('quiz');
+      setQuizKey(initialQuizKey || defaultKey);
+      // const initialQuiz = userQuizList.find((x) => x.key === initialQuizKey);
+      // if (initialQuiz) handleSongClick(initialQuiz.songs[0]);
     }
     fetchData();
-  }, [setQuiz]);
-
-  const handleSongClick = (index: number) =>
-    dispatch({ type: SET_SONG_ACTION, song: quiz.songs[index] });
+  }, [handleSongClick, searchParams]);
 
   const handleWordClick = (
     index: number,
@@ -123,15 +140,37 @@ function ControlPanel() {
 
   return (
     <div css={styles.outerMostContainer}>
+      <div css={styles.topLeftControls}>
+        <IconButton onClick={() => navigate(-1)}>
+          <KeyboardBackspaceIcon style={{ width: '50px', height: '50px' }} />
+        </IconButton>
+        {/* quiz list - maybe at some point? */}
+        {/* {quizList && quizList.length > 1 && (
+          <div style={{ marginTop: '8px' }}>
+            <QuizDropDown
+              content={quizList}
+              selectedQuizKey={quizKey}
+              onSelectedQuizChange={setQuizKey}
+            />
+          </div>
+        )} */}
+      </div>
       <UserIcon />
       <div css={styles.controlPanelContainer}>
         {/* songpicker */}
         <div css={styles.columnContainer}>
-          <SongPicker onSongClick={handleSongClick} quiz={quiz} />
+          <SongPicker
+            selectedSongIndex={
+              songChosen ? quiz.songs.indexOf(activeSong) : undefined
+            }
+            onSongClick={(idx) => handleSongClick(quiz.songs[idx])}
+            quiz={quiz}
+          />
         </div>
         {/* toggle visibility  */}
         <div css={styles.wordColumnContainer}>
-          {activeSong.words.length > 0 &&
+          {songChosen &&
+            activeSong.words.length > 0 &&
             activeSong.words.map((word, idx) => (
               <ToggleWord
                 idx={idx}
@@ -145,12 +184,9 @@ function ControlPanel() {
               />
             ))}
         </div>
-
-        <div css={styles.columnContainer}>
-          <PaperButton onClick={sendIntroMusic}>
-            <div>Play intro</div>
-          </PaperButton>
-          <PaperButton
+        <div css={styles.columnContainer} style={{ gap: '14px' }}>
+          <ControlButton onClick={sendIntroMusic}>Play intro</ControlButton>
+          <ControlButton
             onClick={() =>
               sendStartMusic({
                 url: activeSong.url,
@@ -158,15 +194,15 @@ function ControlPanel() {
               })
             }
           >
-            <div>Play song</div>
-          </PaperButton>
-          <PaperButton onClick={toggleRemainingWords}>
-            <div>Show all words</div>
-          </PaperButton>
+            Play song
+          </ControlButton>
+          <ControlButton onClick={toggleRemainingWords}>
+            Show all words
+          </ControlButton>
 
           {(Object.keys(TriviaState) as Array<keyof typeof TriviaState>).map(
             (key) => (
-              <PaperButton
+              <ControlButton
                 onClick={() => handleTriviaClick(TriviaState[key])}
                 key={uuidv4()}
               >
@@ -174,13 +210,13 @@ function ControlPanel() {
                   style={{
                     color:
                       activeSong.showTrivia === TriviaState[key]
-                        ? 'green'
+                        ? 'lightgreen'
                         : 'red',
                   }}
                 >
                   {TriviaState[key]}
                 </div>
-              </PaperButton>
+              </ControlButton>
             ),
           )}
         </div>

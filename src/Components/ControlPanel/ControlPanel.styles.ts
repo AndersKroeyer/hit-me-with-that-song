@@ -1,14 +1,16 @@
 import { css } from '@emotion/react';
 
-export const columnMargin = css({
-  marginBottom: '100px',
-  marginTop: '100px',
-});
-
+// eslint-disable-next-line import/prefer-default-export
 export const styles = {
   outerMostContainer: css({
     height: '100vh',
     width: '100%',
+  }),
+  topLeftControls: css({
+    position: "absolute",
+    display: "flex",
+    top: 0,
+    left: 15
   }),
   controlPanelContainer: css({
     display: 'flex',
@@ -22,7 +24,8 @@ export const styles = {
     flexDirection: 'column',
     overflow: 'hidden',
     overflowX: 'hidden',
-    ...columnMargin,
+    marginBottom: '100px',
+    marginTop: '100px',
   }),
   columnScrollContainer: css({
     overflowY: 'scroll',
@@ -36,7 +39,8 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    ...columnMargin,
+    marginBottom: '100px',
+    marginTop: '100px',
   }),
   pickSong: css({
     display: 'flex',

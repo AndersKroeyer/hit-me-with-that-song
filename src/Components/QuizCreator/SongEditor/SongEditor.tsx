@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { Divider, IconButton, TextField, Tooltip } from '@mui/material';
-import { ChangeEvent, useCallback, useState } from 'react';
+import { TextField } from '@mui/material';
+import { ChangeEvent, useCallback } from 'react';
 import HelpTooltip from '../../../Common/HelpTooltip/HelpTooltip';
 import { Song, Word } from '../../types';
 
@@ -59,7 +59,7 @@ export default function SongEditor({ song, onSongEdit }: Props) {
       </div>
       <div css={styles.column}>
         <TextField
-          label="Lyrics from the song which will be used as hints in the game"
+          label="Lyrics from the song which will be used as words in the game"
           variant="standard"
           value={song.words.map((x) => x.text).join(' ')}
           onChange={wordsEdited}

@@ -65,7 +65,11 @@ export default function QuizSongCreator({ quiz, onSongsChanged }: Props) {
           />
         </IconButton>
         {quiz.songs.length > 0 && (
-          <SongPicker quiz={quiz} onSongClick={setSelectedSongIndex} />
+          <SongPicker
+            selectedSongIndex={selectedSongIndex}
+            quiz={quiz}
+            onSongClick={setSelectedSongIndex}
+          />
         )}
       </div>
       <div css={styles.songEditorContainer}>

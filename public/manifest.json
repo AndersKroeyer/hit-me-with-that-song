@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Hit-song",
+  "name": "Hit me with that song",
   "icons": [
     {
       "src": "favicon.ico",

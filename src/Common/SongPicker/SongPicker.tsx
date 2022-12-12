@@ -32,17 +32,24 @@ const styles = {
 interface SongPickerProps {
   quiz: Quiz;
   onSongClick: (idx: number) => void;
+  selectedSongIndex: number | undefined;
 }
 
-function SongPicker({ quiz, onSongClick }: SongPickerProps) {
-  const [activeSong, setActiveSong] = useState<Song>();
+function SongPicker({
+  quiz,
+  onSongClick,
+  selectedSongIndex: activeSong,
+}: SongPickerProps) {
+  const [activeSongIndex, setActiveSong] = useState<number | undefined>(
+    activeSong,
+  );
 
   const internalOnClick = useCallback(
     (idx: number) => {
-      setActiveSong(quiz.songs[idx]);
+      setActiveSong(idx);
       onSongClick(idx);
     },
-    [onSongClick, quiz.songs],
+    [onSongClick],
   );
 
   return (
@@ -55,8 +62,7 @@ function SongPicker({ quiz, onSongClick }: SongPickerProps) {
             onClick={() => internalOnClick(idx)}
             key={uuidv4()}
             style={{
-              borderLeft:
-                song.title === activeSong?.title ? '5px solid green' : '',
+              borderLeft: idx === activeSongIndex ? '5px solid green' : '',
             }}
           >
             <span css={styles.songTitle}>

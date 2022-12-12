@@ -26,8 +26,11 @@ export const GetUserQuizList = async () : Promise<Quiz[]> => {
   const {uid} = auth.currentUser;
   
   const querySnapshot = await getDoc(doc(db, firebaseCollection, uid));
-  const data = querySnapshot.data() as FirebaseDto;
-  return ParseFirebaseDto(data);  
+  const data = querySnapshot.data();
+  if(!data)
+    return [];
+
+  return ParseFirebaseDto(data as FirebaseDto);  
 }
 
 export const SaveUserQuizList = async (quizList: Quiz[]) => {

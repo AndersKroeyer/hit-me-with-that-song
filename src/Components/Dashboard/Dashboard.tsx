@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import ReactPlayer from 'react-player';
 import ReactCardFlip from 'react-card-flip';
+import { Avatar } from '@mui/material';
 import styles from './Dashboard.styles';
 import Word from '../Word/Word';
 import { DashboardState, Music, TeamPoints, TriviaState } from '../types';
@@ -15,7 +15,7 @@ const initialState: DashboardState = {
   showTrivia: TriviaState.Hidden,
 };
 
-function Dashboard() {
+export default function Dashboard() {
   const [dataFromBroadCast, setDataFromBroadCast] =
     useState<DashboardState>(initialState);
   const [teamPoints, setTeamPoints] = useState<TeamPoints>({
@@ -73,7 +73,6 @@ function Dashboard() {
             css={styles.cardFlipContainer}
             style={{ flexGrow: getGrowth(word.text.length) }}
           >
-            {/* <div style={{ color: 'white' }}>{index}</div> */}
             <ReactCardFlip isFlipped={word.visible} flipDirection="horizontal">
               <Word
                 visible={false}
@@ -95,15 +94,26 @@ function Dashboard() {
     <div style={{ overflowY: 'hidden' }}>
       <div
         css={styles.pointsContainer}
-        style={{ display: dataFromBroadCast.words.length ? 'block' : 'none' }}
+        style={{ display: dataFromBroadCast.words.length ? 'flex' : 'none' }}
       >
-        <div>Sasha Dupont: {teamPoints.team1Points}</div>
-        <div>Sigurd Barrett: {teamPoints.team2Points}</div>
+        <Avatar
+          alt="Sascha Dupont"
+          css={styles.avatar}
+          src="Images/sashaDupont.png"
+        />
+        <div css={styles.nameText}>Sascha Dupont {teamPoints.team1Points}</div>
+        <div css={styles.nameText} style={{ marginLeft: 'auto' }}>
+          {teamPoints.team2Points} Sigurd Barrett
+        </div>
+        <Avatar
+          alt="Sigurd Barrett"
+          style={{ marginRight: '14px' }}
+          css={styles.avatar}
+          src="Images/sigurd.png"
+        />
       </div>
       {content}
       <ReactPlayer playing={playing} url={musicUrl} onPlay={onMusicStart} />
     </div>
   );
 }
-
-export default Dashboard;

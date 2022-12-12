@@ -28,14 +28,24 @@ const styles = {
 function Landingpage() {
   const [selectedQuizKey, setSelectedQuizKey] = useState('');
   const [quizList, setQuizList] = useState<Quiz[]>([]);
+  const [saveNeeded, setSaveNeeded] = useState(false);
+
+  const quizListUpdated = useCallback((editedQuizList: Quiz[]) => {
+    setQuizList(editedQuizList);
+    setSaveNeeded(true);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       const userQuizList = await GetUserQuizList();
-      setQuizList(userQuizList);
+      quizListUpdated(userQuizList);
+      setSaveNeeded(false);
+      if (userQuizList.length > 0) {
+        setSelectedQuizKey(userQuizList[0].key);
+      }
     }
     fetchData();
-  }, [setQuizList]);
+  }, [quizListUpdated]);
 
   const onSongsChanged = useCallback(
     (key: string, songs: Song[]) => {
@@ -45,14 +55,19 @@ function Landingpage() {
       if (!editedQuiz) return;
 
       editedQuiz.songs = songs;
-      setQuizList(newQuizList);
+      quizListUpdated(newQuizList);
     },
-    [quizList],
+    [quizList, quizListUpdated],
   );
+
+  const playButtonDisabled = (): boolean => {
+    if (!selectedQuizKey || saveNeeded) return true;
+    return false;
+  };
 
   const saveEverything = useCallback(() => {
     SaveUserQuizList(quizList)
-      .then((x) => console.log('data saved'))
+      .then((x) => setSaveNeeded(false))
       .catch((x) => console.log('save failed', x));
   }, [quizList]);
 
@@ -65,16 +80,20 @@ function Landingpage() {
           selectedQuizKey={selectedQuizKey}
           onSelectedQuizChanged={setSelectedQuizKey}
           quizList={quizList}
-          onQuizListChanged={setQuizList}
+          onQuizListChanged={quizListUpdated}
         />
         <Button
           style={{ height: '56px', marginLeft: '120px' }}
-          variant="outlined"
+          variant={saveNeeded ? 'contained' : 'outlined'}
+          disabled={!saveNeeded}
           onClick={saveEverything}
         >
           Save everything!
         </Button>
-        <PlayGameButton />
+        <PlayGameButton
+          quizKey={selectedQuizKey}
+          disabled={playButtonDisabled()}
+        />
         <UserIcon />
       </div>
       <div css={styles.songList}>
